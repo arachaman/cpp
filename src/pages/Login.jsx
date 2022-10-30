@@ -39,6 +39,7 @@ const Register = () => {
           md={{ span: 4, offset: 4 }}
           className="border p-4 mt-5 rounded shadow"
         >
+          <h2>Login</h2>
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -62,9 +63,6 @@ const Register = () => {
                 }
                 value={credentials.password}
               />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
             <Button
               disabled={loading}

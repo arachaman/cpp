@@ -36,6 +36,7 @@ const Register = () => {
           md={{ span: 6, offset: 3 }}
           className="border p-4 mt-5 rounded shadow"
         >
+          <h2>Register</h2>
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -59,9 +60,6 @@ const Register = () => {
                 }
                 value={credentials.password}
               />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
             <Button variant="primary" type="button" onClick={() => createUserWithEmailAndPassword(credentials.email, credentials.password)}>
               Register

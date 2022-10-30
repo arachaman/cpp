@@ -22,7 +22,7 @@ const AdmNav = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Nav className="fw-bold">
               <Nav.Link href="/dashboard/category">| Manage Category  |</Nav.Link>
-              <Nav.Link href="/#about">Manage Order |</Nav.Link>
+              <Nav.Link href="/dashboard/manageorder">Manage Order |</Nav.Link>
             </Nav>
             <Nav className="fw-semibold">
               <Nav.Link as={Link} to="/register">Sgin Out</Nav.Link>

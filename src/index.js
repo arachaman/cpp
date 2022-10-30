@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Register from "./pages/Register";
 import Dashboard from "./pages/admin/Dashboard";
 import Category from "./pages/admin/Category";
+import ManageOrder from "./pages/admin/ManageOrder";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -21,6 +22,7 @@ root.render(
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/category" element={<Category />} />
+          <Route path="/dashboard/manageorder" element={<ManageOrder />} />
         </Route>
       </Routes>
     </BrowserRouter>
