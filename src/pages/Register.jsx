@@ -1,33 +1,40 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import React from "react";
+import { useState, useEffect } from "react";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import {
   useAuthState,
   useCreateUserWithEmailAndPassword,
-} from 'react-firebase-hooks/auth';
-import { getAuth } from 'firebase/auth';
-import firebaseApp from '../config/fb';
-import { useNavigate } from 'react-router-dom';
+} from "react-firebase-hooks/auth";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { firebaseConfig, db, app } from "../config/fb";
 
-const auth = getAuth(firebaseApp);
+const auth = getAuth(app);
+const dbRef = collection(db, "user");
 
 const Register = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
-  const [createUserWithEmailAndPassword,
-         user
-  ] = useCreateUserWithEmailAndPassword(auth);
+  const createUser = async () => {
+    await addDoc(dbRef, {
+      email: credentials.email,
+      password: credentials.password,
+    });
+  };
+
+  const [createUserWithEmailAndPassword, user] =
+    useCreateUserWithEmailAndPassword(auth);
 
   useEffect(() => {
-    if(user !== undefined)
-      navigate('/dashboard', {replace: true})
-  }, [user])
-  
+    if (user !== undefined) navigate("/dashboard", { replace: true });
+  }, [user]);
+
   return (
     <div>
       <Row>
@@ -61,7 +68,11 @@ const Register = () => {
                 value={credentials.password}
               />
             </Form.Group>
-            <Button variant="primary" type="button" onClick={() => createUserWithEmailAndPassword(credentials.email, credentials.password)}>
+            <Button
+              variant="primary"
+              type="button"
+              onClick={() => createUser()}
+            >
               Register
             </Button>
           </Form>
