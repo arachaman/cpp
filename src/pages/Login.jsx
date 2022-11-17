@@ -1,16 +1,16 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { Form, Row, Col, Button, Alert } from 'react-bootstrap';
+import React from "react";
+import { useState, useEffect } from "react";
+import { Form, Row, Col, Button, Alert } from "react-bootstrap";
 import {
   useAuthState,
   useSignInWithEmailAndPassword,
-} from 'react-firebase-hooks/auth';
-import { getAuth } from 'firebase/auth';
-import firebaseApp from '../config/fb';
-import { useNavigate } from 'react-router-dom';
-import Spinner from 'react-bootstrap/Spinner';
+} from "react-firebase-hooks/auth";
+import { getAuth } from "firebase/auth";
+import { firebaseConfig, app } from "../config/fb";
+import { useNavigate } from "react-router-dom";
+import Spinner from "react-bootstrap/Spinner";
 
-const auth = getAuth(firebaseApp);
+const auth = getAuth(app);
 // const errorDict = {
 //   'auth/wrong-password': ; 'wrong password',
 //   etc
@@ -20,15 +20,15 @@ const Register = () => {
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
   useEffect(() => {
-    if (user !== undefined) navigate('/dashboard', { replace: true });
+    if (user !== undefined) navigate("/dashboard", { replace: true });
   }, [user]);
 
   return (
@@ -78,12 +78,12 @@ const Register = () => {
               {loading && (
                 <Spinner animation="border" variant="light" size="sm" />
               )}
-              {loading ? 'Loading' : 'login'}
+              {loading ? "Loading" : "login"}
             </Button>
           </Form>
         </Col>
         <Row>
-          <Col md={{ span: 8, offset: 2 }}  className='mt-3' >
+          <Col md={{ span: 8, offset: 2 }} className="mt-3">
             {error && <Alert variant="danger">{error.code}</Alert>}
             {/* {error && errorDict[error.code]} */}
           </Col>
