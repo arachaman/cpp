@@ -1,15 +1,14 @@
 import React from 'react'
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Navbar, Nav, } from "react-bootstrap";
-import logo from '../../images/logo.png'
+import { Container, Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import logo from '../images/logo.png'
 
-const AdmNav = () => {
+const Navigation = () => {
   return (
     <div>
         <Navbar bg="light" expand="lg" sticky="top">
         <Container>
-          <Navbar.Brand href="/dashboard">
+          <Navbar.Brand href="/">
           <img
               alt=""
               src={logo}
@@ -17,21 +16,23 @@ const AdmNav = () => {
               height="30"
               className="d-inline-block align-top"
             />
-            C-Ware Admin
+            C-Warehouse
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Nav className="fw-bold">
-              <Nav.Link href="/dashboard/category">| Manage Category  |</Nav.Link>
-              <Nav.Link href="/dashboard/manageorder">Manage Order |</Nav.Link>
+              <Nav.Link href="/#collection">COLLECTION </Nav.Link>
+              <Nav.Link href="/#category">CATEGORY</Nav.Link>
+              <Nav.Link href="/#about">ABOUT US</Nav.Link>
             </Nav>
             <Nav className="fw-semibold">
-              <Nav.Link as={Link} to="/loginAdmin">Sgin Out</Nav.Link>
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+              <Nav.Link as={Link} to="/register">Register</Nav.Link>
+              <Nav.Link as={Link} to="/loginadmin">Dashboard</Nav.Link>
             </Nav>
         </Container>
       </Navbar>
-      <Container></Container>
     </div>
   )
 }
 
-export default AdmNav
+export default Navigation

@@ -6,7 +6,7 @@ import {
   useSignInWithEmailAndPassword,
 } from 'react-firebase-hooks/auth';
 import { getAuth } from 'firebase/auth';
-import firebaseApp from '../config/fb';
+import firebaseApp from '../../config/fb';
 import { useNavigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -28,7 +28,7 @@ const Register = () => {
     useSignInWithEmailAndPassword(auth);
 
   useEffect(() => {
-    if (user !== undefined) navigate('/', { replace: true });
+    if (user !== undefined) navigate('/dashboard', { replace: true });
   }, [user]);
 
   return (
@@ -65,6 +65,7 @@ const Register = () => {
               />
             </Form.Group>
             <Button
+              className='me-2'
               disabled={loading}
               variant="primary"
               type="button"
@@ -79,6 +80,18 @@ const Register = () => {
                 <Spinner animation="border" variant="light" size="sm" />
               )}
               {loading ? 'Loading' : 'login'}
+            </Button>
+           
+            <Button
+              disabled={loading}
+              variant="primary"
+              type="button"
+              href='/'
+            >
+              {loading && (
+                <Spinner animation="border" variant="light" size="sm" />
+              )}
+              {loading ? 'Loading' : 'Landing Page'}
             </Button>
           </Form>
         </Col>

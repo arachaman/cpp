@@ -2,10 +2,10 @@ import React from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { getAuth } from 'firebase/auth'
-import FirebaseConf from '../../config/FirebaseConf'
+import fb from '../../config/fb'
 
 const Auth = ({children}) => {
-    const auth = getAuth(FirebaseConf)
+    const auth = getAuth(fb)
     const [user, loading] = useAuthState(auth)
     let location = useLocation()
 

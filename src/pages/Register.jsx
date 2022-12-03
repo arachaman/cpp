@@ -25,7 +25,7 @@ const Register = () => {
 
   useEffect(() => {
     if(user !== undefined)
-      navigate('/dashboard', {replace: true})
+      navigate('/login', {replace: true})
   }, [user])
   
   return (

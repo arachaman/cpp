@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Button, Table } from "react-bootstrap";
+import { Container, Button, Table, Row, Col } from "react-bootstrap";
 import AdmNav from "./AdmNav";
 
 const Dashboard = () => {
@@ -8,9 +8,11 @@ const Dashboard = () => {
     <div>
       <AdmNav/>
       <Container>
-        <div className="mt-5 ">
+        <Row>
+          <Col>
+          <div className="mt-5 ">
         <h1>Dashboard</h1>
-        <Button variant="primary">Add Product</Button>{' '}
+        <Button variant="primary" href="/dashboard/addproduct">Add Product</Button>
           <Table className="table table-striped text-center">
             <thead>
               <tr>
@@ -27,11 +29,13 @@ const Dashboard = () => {
                 <td>Mark</td>
                 <td>Otto</td>
                 <td>@mdo</td>
-                <td><Button variant="warning">Edit</Button>{' '} <Button variant="danger">Delete</Button>{' '}</td>
+                <td><Button variant="warning" href="/dashboard/editproduct">Edit</Button> <Button variant="danger">Delete</Button>{' '}</td>
               </tr>
             </tbody>
           </Table>
         </div>
+          </Col>
+        </Row>
       </Container>
     </div>
   )
