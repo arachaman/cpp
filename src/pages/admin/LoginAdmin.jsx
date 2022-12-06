@@ -5,18 +5,16 @@ import {
   useAuthState,
   useSignInWithEmailAndPassword,
 } from 'react-firebase-hooks/auth';
-import { getAuth } from 'firebase/auth';
-import firebaseApp from '../../config/fb';
 import { useNavigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
+import { auth } from '../../config/fb';
 
-const auth = getAuth(firebaseApp);
 // const errorDict = {
 //   'auth/wrong-password': ; 'wrong password',
 //   etc
 // }
 
-const Register = () => {
+const LoginAdmin = () => {
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
@@ -106,4 +104,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default LoginAdmin;

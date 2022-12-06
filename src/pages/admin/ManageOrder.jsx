@@ -1,9 +1,49 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Button, Table } from "react-bootstrap";
 import AdmNav from './AdmNav';
+import { doc, collection, getDocs, updateDoc } from "firebase/firestore";
+import { db } from '../../config/fb.js'
+import OrderList from '../../components/OrderList';
 
 const ManageOrder = () => {
+
+  const [orders, setOrders] = useState([])
+
+  useEffect(() => {
+    const getCollection = async() => {
+      const querySnapshot = await getDocs(collection(db, "orders"));
+      setOrders(querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        data: doc.data()
+      })))
+    }
+    getCollection()
+  },[])
+
+  async function completeOrderHandler(id){
+    const taskDocRef = doc(db, 'orders', id)
+    try{
+      await updateDoc(taskDocRef, {
+        status:"completed"
+      })
+    } catch (err) {
+      alert(err)
+    }
+  }
+
+  async function cancelOrderHandler(id){
+    const taskDocRef = doc(db, 'orders', id)
+    try{
+      await updateDoc(taskDocRef, {
+        status:"canceled"
+      })
+    } catch (err) {
+      alert(err)
+    } 
+
+  }
+
   return (
     <div>
         <AdmNav/>
@@ -14,22 +54,33 @@ const ManageOrder = () => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>id</th>
+                <th>Booking id</th>
+                <th>Customer Email</th>
                 <th>Product Name</th>
                 <th>Date Order</th>
                 <th>Qty</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>@mdo</td>
-                <td><Button variant="warning">Edit</Button>{' '} <Button variant="danger">Delete</Button>{' '}</td>
-              </tr>
+              {
+                orders.map((order, i)=>(
+                  <OrderList
+                    key={order.id}
+                    id={order.id}
+                    index={i}
+                    bookingId={order.data.bookingId}
+                    user={order.data.user}
+                    dateOrder={order.data.dateOrder}
+                    title={order.data.title}
+                    status={order.data.status}
+                    amount={order.data.amount}
+                    onCompleteHandler={completeOrderHandler}
+                    onCancelHandler={cancelOrderHandler}
+                  />
+                ))
+              }
             </tbody>
           </Table>
         </div>

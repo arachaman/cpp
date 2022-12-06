@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Form, Row, Col, Button } from 'react-bootstrap';
-import {
-  useAuthState,
-  useCreateUserWithEmailAndPassword,
-} from 'react-firebase-hooks/auth';
+import { Form, Row, Col, Button, Alert } from 'react-bootstrap';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { getAuth } from 'firebase/auth';
 import firebaseApp from '../config/fb';
+import { db } from '../config/fb.js'
 import { useNavigate } from 'react-router-dom';
+import {collection, addDoc } from 'firebase/firestore'
+import Spinner from 'react-bootstrap/Spinner';
 
 const auth = getAuth(firebaseApp);
 
@@ -19,13 +19,29 @@ const Register = () => {
     password: '',
   });
 
-  const [createUserWithEmailAndPassword,
-         user
+  const [createUserWithEmailAndPassword, user, loading, error
   ] = useCreateUserWithEmailAndPassword(auth);
 
   useEffect(() => {
-    if(user !== undefined)
-      navigate('/login', {replace: true})
+    async function registerHandler (){
+      if(user !== undefined){
+        try {
+            await addDoc(collection(db, 'carts'), {
+                email: credentials.email,
+                carts: [{
+                  items: [],
+                  totalAmount: 0
+                }]
+            })
+        } catch (err) {
+            alert(err)
+        }
+        navigate('/login', {replace: true})
+      }
+    }
+
+    registerHandler()
+
   }, [user])
   
   return (
@@ -61,11 +77,24 @@ const Register = () => {
                 value={credentials.password}
               />
             </Form.Group>
-            <Button variant="primary" type="button" onClick={() => createUserWithEmailAndPassword(credentials.email, credentials.password)}>
-              Register
+            <Button
+              disabled={loading}
+              variant="primary" 
+              type="button" 
+              onClick={() => createUserWithEmailAndPassword(credentials.email, credentials.password)}>
+
+              {loading && (
+                <Spinner animation="border" variant="light" size="sm" />
+              )}
+              {loading ? 'Loading' : 'Register'}
             </Button>
           </Form>
         </Col>
+        <Row>
+          <Col md={{ span: 8, offset: 2 }}  className='mt-3' >
+            {error && <Alert variant="danger">{error.message}</Alert>}
+          </Col>
+        </Row>
       </Row>
     </div>
   );
