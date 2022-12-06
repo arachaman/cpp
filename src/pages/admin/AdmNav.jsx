@@ -2,9 +2,23 @@ import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Navbar, Nav, } from "react-bootstrap";
 import logo from '../../images/logo.png'
-import { Link } from "react-router-dom";
+import { UserAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const AdmNav = () => {
+
+  const navigate = useNavigate();
+  const { logout } = UserAuth();
+
+  const signOutHandler = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (e) {
+      console.log(e)
+    }
+  };
+
   return (
     <div>
         <Navbar bg="light" expand="lg" sticky="top">
@@ -25,7 +39,7 @@ const AdmNav = () => {
               <Nav.Link href="/dashboard/manageorder">Manage Order |</Nav.Link>
             </Nav>
             <Nav className="fw-semibold">
-              <Nav.Link as={Link} to="/loginAdmin">Sgin Out</Nav.Link>
+              <Nav.Link onClick={signOutHandler}>Sign Out</Nav.Link>
             </Nav>
         </Container>
       </Navbar>

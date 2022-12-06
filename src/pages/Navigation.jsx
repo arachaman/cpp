@@ -27,7 +27,6 @@ const Navigation = () => {
             <Nav className="fw-semibold">
               <Nav.Link as={Link} to="/login">Login</Nav.Link>
               <Nav.Link as={Link} to="/register">Register</Nav.Link>
-              <Nav.Link as={Link} to="/loginadmin">Dashboard</Nav.Link>
             </Nav>
         </Container>
       </Navbar>

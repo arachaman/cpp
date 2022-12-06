@@ -1,35 +1,38 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button, Alert } from 'react-bootstrap';
-import {
-  useAuthState,
-  useSignInWithEmailAndPassword,
-} from 'react-firebase-hooks/auth';
-import { getAuth } from 'firebase/auth';
-import firebaseApp from '../config/fb';
 import { useNavigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
+import { UserAuth } from '../context/AuthContext';
 
-const auth = getAuth(firebaseApp);
-// const errorDict = {
-//   'auth/wrong-password': ; 'wrong password',
-//   etc
-// }
+const Login = () => {
 
-const Register = () => {
   const navigate = useNavigate();
+
+  const [error, setError] = useState();
+
+  const [loading, isLoading] = useState()
 
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
   });
 
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
 
-  useEffect(() => {
-    if (user !== undefined) navigate('/', { replace: true });
-  }, [user]);
+  const { signIn } = UserAuth();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    isLoading(true)
+    setError('')
+    try {
+      await signIn(credentials.email, credentials.password)
+      navigate('/')
+    } catch (e) {
+      setError(e.message)
+    }
+    isLoading(false)
+  };
 
   return (
     <div>
@@ -40,7 +43,7 @@ const Register = () => {
           className="border p-4 mt-5 rounded shadow"
         >
           <h2>Login</h2>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -67,25 +70,19 @@ const Register = () => {
             <Button
               disabled={loading}
               variant="primary"
-              type="button"
-              onClick={() =>
-                signInWithEmailAndPassword(
-                  credentials.email,
-                  credentials.password
-                )
-              }
+              type="submit"
+              
             >
               {loading && (
                 <Spinner animation="border" variant="light" size="sm" />
               )}
-              {loading ? 'Loading' : 'login'}
+              {loading ? 'Loading' : 'Login'}
             </Button>
           </Form>
         </Col>
         <Row>
           <Col md={{ span: 8, offset: 2 }}  className='mt-3' >
-            {error && <Alert variant="danger">{error.code}</Alert>}
-            {/* {error && errorDict[error.code]} */}
+            {error && <Alert variant="danger">{error}</Alert>}
           </Col>
         </Row>
       </Row>
@@ -93,4 +90,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

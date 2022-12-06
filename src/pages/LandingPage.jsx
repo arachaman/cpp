@@ -1,14 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../css/landingPage.module.css";
-import { Container, Row, Col, Card, Button,} from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Navigation from './Navigation'
+import NavigationUser from './user/NavigationUser'
+import { collection, getDocs } from "firebase/firestore";
+import { db } from '../config/fb'
+import ListProductLanding from "../components/LandingPage/ListProductLanding";
+import { UserAuth } from '../context/AuthContext';
+import CardCategoryLanding from "../components/LandingPage/CardCategoryLanding";
 
 
 const LandingPages = () => {
+
+  const [products, setProducts] = useState([])
+  const [categories, setCategories] = useState([])
+
+  const { user } = UserAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getCollection = async() => {
+      const querySnapshot = await getDocs(collection(db, "products"));
+      setProducts(querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        data: doc.data()
+      })))
+    }
+    getCollection()
+  },[])
+  
+  useEffect(() => {
+    const getCollection = async() => {
+      const querySnapshot = await getDocs(collection(db, "categories"));
+      setCategories(querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        data: doc.data()
+      })))
+    }
+    getCollection()
+  },[])
+
   return (
     <div>
-      <Navigation/>
+      { user != null ? <NavigationUser/> : <Navigation/> }
       <div className={`${styles.banner} text-white `}>
         <div className="position-absolute top-50 start-50 translate-middle text-center">
           <h1>
@@ -23,19 +59,37 @@ const LandingPages = () => {
       </div>
       <Container>
         <Row id="collection">
-          <Col  className="text-center mt-4">
+          <Col className="text-center mt-4">
             <h1 >COLLECTION</h1>
-            <Card style={{ width: "18rem", border: 0 }} className="mt-5">
-              <Card.Img
-                variant="top"
-                src="https://images-na.ssl-images-amazon.com/images/I/41xShlnTZTL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg"
-              />
-              <Card.Body>
-                <Card.Title>buku coding</Card.Title>
-                <Card.Text>Rp</Card.Text>
-                <Button variant="primary" href="/product">details</Button>
-              </Card.Body>
-            </Card>
+            <Row className="justify-content-md-center">
+              {
+                products.map((prod,i)=>{
+                  return i <= 3 
+                  ? (
+                      <ListProductLanding
+                        key={prod.id}
+                        id={prod.id}
+                        title={prod.data.title}
+                        price={prod.data.price}
+                        link={prod.data.link}
+                        stock={prod.data.stock}
+                        description={prod.data.description}
+                        category={prod.data.category}
+                      />
+                    )
+                  : null
+                })
+              }
+            </Row>
+            <Button 
+              style={{width: "18rem"}}  
+              className=" mt-3 px-5" 
+              size="lg" 
+              variant="primary"
+              onClick={()=>navigate('/listproducts')}
+            >
+              See More Products
+            </Button>
           </Col>
         </Row>
       </Container>
@@ -43,20 +97,36 @@ const LandingPages = () => {
         <Row id="category">
           <Col className="text-center mt-4">
             <h1 >CATEGORY</h1>
-            <Card style={{ width: "18rem" }} className="mt-5">
-              <Card.Img
-                variant="top"
-                src="https://www.dicoding.com/blog/wp-content/uploads/2020/04/Internship-rendi-programming-bahasa.png"
-              />
-              <Card.Body>
-                <Card.Title>Programming</Card.Title>
-                <Button href="/category" variant="primary">details</Button>
-              </Card.Body>
-            </Card>
+            <Row>
+              {
+                categories.map((cat,i)=>{
+                  return i <= 3
+                  ? (
+                    <CardCategoryLanding
+                      key={cat.id}
+                      id={cat.id}
+                      title={cat.data.title}
+                      description={cat.data.description}
+                      link={cat.data.link}
+                    />
+                    )
+                  : null
+                })
+              }
+            </Row>
+            <Button 
+              style={{width: "18rem"}}  
+              className=" mt-3 px-5" 
+              size="lg" 
+              variant="primary"
+              onClick={()=>navigate('/listcategories')}
+            >
+              See More Categories
+            </Button>
           </Col>
         </Row>
       </Container>
-      <Container id="about" className="text-center">
+      <Container id="about" className="text-center mt-5">
         <h1>About Us</h1>
         <div>
           <Row>
