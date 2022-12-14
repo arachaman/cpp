@@ -10,6 +10,7 @@ import { db } from '../config/fb'
 import ListProductLanding from "../components/LandingPage/ListProductLanding";
 import { UserAuth } from '../context/AuthContext';
 import CardCategoryLanding from "../components/LandingPage/CardCategoryLanding";
+import Footer from "./Footer";
 
 
 const LandingPages = () => {
@@ -21,7 +22,7 @@ const LandingPages = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getCollection = async() => {
+    const getCollection = async () => {
       const querySnapshot = await getDocs(collection(db, "products"));
       setProducts(querySnapshot.docs.map(doc => ({
         id: doc.id,
@@ -29,10 +30,10 @@ const LandingPages = () => {
       })))
     }
     getCollection()
-  },[])
-  
+  }, [])
+
   useEffect(() => {
-    const getCollection = async() => {
+    const getCollection = async () => {
       const querySnapshot = await getDocs(collection(db, "categories"));
       setCategories(querySnapshot.docs.map(doc => ({
         id: doc.id,
@@ -40,18 +41,18 @@ const LandingPages = () => {
       })))
     }
     getCollection()
-  },[])
+  }, [])
 
   return (
     <div>
-      { user != null ? <NavigationUser/> : <Navigation/> }
+      {user != null ? <NavigationUser /> : <Navigation />}
       <div className={`${styles.banner} text-white `}>
         <div className="position-absolute top-50 start-50 translate-middle text-center">
           <h1>
             WELCOME TO <br /> C-WAREHOUSE
           </h1>
           <h3 className="fw-normal">
-            
+
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ipsa
             quaerat soluta quod! Minus hic ad maxime soluta iure magnam.
           </h3>
@@ -63,9 +64,9 @@ const LandingPages = () => {
             <h1 >COLLECTION</h1>
             <Row className="justify-content-md-center">
               {
-                products.map((prod,i)=>{
-                  return i <= 3 
-                  ? (
+                products.map((prod, i) => {
+                  return i <= 3
+                    ? (
                       <ListProductLanding
                         key={prod.id}
                         id={prod.id}
@@ -77,16 +78,16 @@ const LandingPages = () => {
                         category={prod.data.category}
                       />
                     )
-                  : null
+                    : null
                 })
               }
             </Row>
-            <Button 
-              style={{width: "18rem"}}  
-              className=" mt-3 px-5" 
-              size="lg" 
+            <Button
+              style={{ width: "18rem" }}
+              className=" mt-3 px-5"
+              size="lg"
               variant="primary"
-              onClick={()=>navigate('/listproducts')}
+              onClick={() => navigate('/listproducts')}
             >
               See More Products
             </Button>
@@ -99,27 +100,27 @@ const LandingPages = () => {
             <h1 >CATEGORY</h1>
             <Row>
               {
-                categories.map((cat,i)=>{
+                categories.map((cat, i) => {
                   return i <= 3
-                  ? (
-                    <CardCategoryLanding
-                      key={cat.id}
-                      id={cat.id}
-                      title={cat.data.title}
-                      description={cat.data.description}
-                      link={cat.data.link}
-                    />
+                    ? (
+                      <CardCategoryLanding
+                        key={cat.id}
+                        id={cat.id}
+                        title={cat.data.title}
+                        description={cat.data.description}
+                        link={cat.data.link}
+                      />
                     )
-                  : null
+                    : null
                 })
               }
             </Row>
-            <Button 
-              style={{width: "18rem"}}  
-              className=" mt-3 px-5" 
-              size="lg" 
+            <Button
+              style={{ width: "18rem" }}
+              className=" mt-3 px-5"
+              size="lg"
               variant="primary"
-              onClick={()=>navigate('/listcategories')}
+              onClick={() => navigate('/listcategories')}
             >
               See More Categories
             </Button>
@@ -131,7 +132,7 @@ const LandingPages = () => {
         <div>
           <Row>
             <Col md={{ span: 6 }} sm={12}>
-              <img src="https://eslbrains.com/wp-content/uploads/2022/01/Im-afraid-thats-outside-the-scope-of-this-meeting-473x381.png" alt=""/>
+              <img src="https://eslbrains.com/wp-content/uploads/2022/01/Im-afraid-thats-outside-the-scope-of-this-meeting-473x381.png" alt="" />
             </Col>
             <Col className="align-self-center">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta magnam laborum in aliquam? Minima, reprehenderit nesciunt est pariatur magnam natus deleniti ad labore dolorum distinctio nostrum vero facilis et suscipit enim vel ratione ducimus consequatur facere nam aspernatur? Maiores minus officia, animi cumque nobis fugiat modi, quam perspiciatis tempora vero quos temporibus omnis quae recusandae magnam deserunt? Eos ab corrupti labore eaque alias, consequuntur ullam quasi. Inventore aspernatur consectetur quod est alias illo, sapiente enim deserunt a. Recusandae aliquid minus tempore! Nihil a at ipsam accusantium aliquid, eaque, est expedita esse, culpa possimus excepturi placeat rerum nobis amet incidunt non!
@@ -139,7 +140,9 @@ const LandingPages = () => {
           </Row>
         </div>
       </Container>
+      <Footer />
     </div>
+
   );
 };
 

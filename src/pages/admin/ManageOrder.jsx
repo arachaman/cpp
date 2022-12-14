@@ -30,6 +30,7 @@ const ManageOrder = () => {
     } catch (err) {
       alert(err)
     }
+    window.location.reload(false)
   }
 
   async function cancelOrderHandler(id){
@@ -41,7 +42,7 @@ const ManageOrder = () => {
     } catch (err) {
       alert(err)
     } 
-
+    window.location.reload(false)
   }
 
   return (

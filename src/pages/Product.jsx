@@ -10,6 +10,8 @@ import { doc, collection, getDocs, query, where, updateDoc } from "firebase/fire
 import { db } from '../config/fb.js'
 import CapitalizeLetter from '../helper/CapitalizeLetter';
 import FormattedPrice from '../helper/FormattedPrice';
+import Footer from "./Footer";
+
 
 const Product = () => {
 
@@ -19,10 +21,10 @@ const Product = () => {
 
     const cartCtx = useContext(CartContext)
 
-    useEffect(()=>{
+    useEffect(() => {
         let cartId;
-        if(cartCtx.items.length > 0){
-            async function updateCart(){
+        if (cartCtx.items.length > 0) {
+            async function updateCart() {
 
                 const q = query(collection(db, "carts"), where("email", "==", user.email));
                 const querySnapshot = await getDocs(q);
@@ -30,9 +32,9 @@ const Product = () => {
                     cartId = doc.id
                 });
                 const taskDocRef = doc(db, 'carts', cartId)
-                try{
+                try {
                     await updateDoc(taskDocRef, {
-                        carts:[{
+                        carts: [{
                             items: cartCtx.items,
                             totalAmount: cartCtx.totalAmount
                         }]
@@ -41,15 +43,15 @@ const Product = () => {
                     alert(err)
                 }
             }
-    
+
             updateCart()
         }
 
-    },[cartCtx.items])
+    }, [cartCtx.items])
 
-   
 
-    const {state} = useLocation();
+
+    const { state } = useLocation();
     const {
         id,
         title,
@@ -59,7 +61,7 @@ const Product = () => {
         category,
         description
     } = state
-    
+
     const addToCartHandler = async () => {
         cartCtx.addItem({
             id: id,
@@ -88,32 +90,32 @@ const Product = () => {
 
     return (
         <div>
-            { user != null ? <NavigationUser/> : <Navigation/> }
-            <Container className='mt-5' md={{span: 6, offset: 2}}>
+            {user != null ? <NavigationUser /> : <Navigation />}
+            <Container className='mt-5' md={{ span: 6, offset: 2 }}>
                 <Row>
-                    <Col md={{span: 2, offset:2}} className="me-4">
+                    <Col md={{ span: 2, offset: 2 }} className="me-4">
                         <img src={link} className="img-fluid" alt="product" />
                     </Col>
-                    <Col md={{span: 5}} >
+                    <Col md={{ span: 5 }} >
                         <h2>{CapitalizeLetter(title)}</h2>
                         <h3>{CapitalizeLetter(category)}</h3>
                         <h5>Stock: {stock} </h5>
                         <h3>{FormattedPrice(price)}</h3>
                         <h5>Description:</h5>
                         <p>{description}</p>
-                        <br/>
-                        <Button 
-                            variant="warning" 
+                        <br />
+                        <Button
+                            variant="warning"
                             className='me-2'
                             onClick={
-                                user != null 
-                                ? addToCartHandler
-                                : ()=>{navigate('/login')}
+                                user != null
+                                    ? addToCartHandler
+                                    : () => { navigate('/login') }
                             }
                         >
                             Add to Cart
                         </Button>
-                        <Button 
+                        <Button
                             variant="danger"
                             onClick={buyNowHandler}
                         >
@@ -122,6 +124,7 @@ const Product = () => {
                     </Col>
                 </Row>
             </Container>
+            <Footer/>
         </div>
     )
 }

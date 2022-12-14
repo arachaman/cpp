@@ -10,13 +10,14 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from '../config/fb'
 import ListProductLanding from "../components/LandingPage/ListProductLanding";
 
+
 const Category = () => {
 
   const { user } = UserAuth();
 
-  const {state} = useLocation();
+  const { state } = useLocation();
 
-  const [ products, setProducts ] = useState([])
+  const [products, setProducts] = useState([])
 
   const {
     id,
@@ -26,7 +27,7 @@ const Category = () => {
   } = state
 
   useEffect(() => {
-    const getCollection = async() => {
+    const getCollection = async () => {
       const q = query(collection(db, "products"), where("category", "==", title));
 
       const querySnapshot = await getDocs(q);
@@ -37,37 +38,37 @@ const Category = () => {
 
     }
     getCollection()
-  },[])
+  }, [])
 
   return (
     <div>
-      { user != null ? <NavigationUser/> : <Navigation/> }
-      
+      {user != null ? <NavigationUser /> : <Navigation />}
+
       <div className="px-4 pt-5 my-5 text-center">
         <h1 className="display-4 fw-bold">{CapitalizeLetter(title)}</h1>
         <div className="col-lg-6 mx-auto">
           <p className='lead mb-4'>{description}</p>
         </div>
         <div>
-          <div className="container px-5" style={{height: "420px"}}>
-            <img 
+          <div className="container px-5" style={{ height: "420px" }}>
+            <img
               src={link}
               style={{
                 width: "80%",
                 objectFit: "cover",
                 height: "100%",
               }}
-              className="img-fluid border rounded-3 shadow-lg mb-4" 
-              alt="Example image" 
+              className="img-fluid border rounded-3 shadow-lg mb-4"
+              alt="Example image"
               loading="lazy"
             />
           </div>
         </div>
       </div>
-      <Container className= "mb-2">
+      <Container className="mb-2">
         <Row id="collection" className="justify-content-md-center">
           {
-            products.map((prod,i)=>(
+            products.map((prod, i) => (
               <ListProductLanding
                 key={prod.id}
                 id={prod.id}
@@ -81,6 +82,7 @@ const Category = () => {
             ))
           }
         </Row>
+
       </Container>
     </div>
   )

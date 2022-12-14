@@ -4,13 +4,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Row, Col, Container, Form, Button, Table } from "react-bootstrap";
 import { UserAuth } from '../../context/AuthContext';
 import CartContext from "../../context/cart/cart-context";
-import {db} from '../../config/fb.js'
-import {collection, addDoc, Timestamp, query, where, getDocs, updateDoc, doc} from 'firebase/firestore'
+import { db } from '../../config/fb.js'
+import { collection, addDoc, Timestamp, query, where, getDocs, updateDoc, doc } from 'firebase/firestore'
 import { v4 as uuid } from 'uuid';
 import FormattedPrice from "../../helper/FormattedPrice";
 import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from 'react-router-dom';
 import ThankYouModal from "../../components/ThankYouModal";
+import Footer from "../Footer";
+
 
 const Payment = () => {
 
@@ -24,18 +26,18 @@ const Payment = () => {
   const [loading, isLoading] = useState()
   const [modalShow, setModalShow] = useState(false);
 
-  async function submitHandler(e){
+  async function submitHandler(e) {
     e.preventDefault()
-    if(cartCtx.items !== undefined){
+    if (cartCtx.items !== undefined) {
       isLoading(true)
-      for (let i = 0; i < cartCtx.items.length; i++){
+      for (let i = 0; i < cartCtx.items.length; i++) {
         try {
           await addDoc(collection(db, 'orders'), {
             title: cartCtx.items[i].title.toLowerCase(),
             user: user.email,
             amount: cartCtx.items[i].amount,
             bookingId: unique_id,
-            status:"pending",
+            status: "pending",
             dateOrder: Timestamp.now()
           })
         } catch (err) {
@@ -47,34 +49,34 @@ const Payment = () => {
       const q = query(collection(db, "carts"), where("email", "==", user.email));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-          cartId = doc.id
+        cartId = doc.id
       });
-  
+
       const taskDocRef = doc(db, 'carts', cartId)
-      try{
-          await updateDoc(taskDocRef, {
-              carts:[{
-                  items: [],
-                  totalAmount: 0
-              }]
-          })
+      try {
+        await updateDoc(taskDocRef, {
+          carts: [{
+            items: [],
+            totalAmount: 0
+          }]
+        })
       } catch (err) {
         alert(err)
       }
       isLoading(false)
       setModalShow(true)
-    } 
+    }
     isLoading(false)
   }
 
-  function hideHandler(){
+  function hideHandler() {
     setModalShow(false)
     navigate('/')
   }
 
   return (
     <div>
-      <NavigationUser/>
+      <NavigationUser />
       <ThankYouModal
         show={modalShow}
         onHide={hideHandler}
@@ -90,7 +92,7 @@ const Payment = () => {
 
               <Form.Group className="mb-3" controlId="formBasicAdress">
                 <Form.Label>Address</Form.Label>
-                <Form.Control disabled={loading} required as="textarea" placeholder="Address" rows={2}  />
+                <Form.Control disabled={loading} required as="textarea" placeholder="Address" rows={2} />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicZipCode">
@@ -124,21 +126,22 @@ const Payment = () => {
           </Row>
           <Row className="mt-4">
             <Col className="mx-auto">
-              <Button 
-                className="px-5" 
-                variant="primary" 
+              <Button
+                className="px-5"
+                variant="primary"
                 type="submit"
                 disabled={cartCtx.totalAmount == 0 ? true : false}
               >
                 {loading && (
-                    <Spinner animation="border" variant="light" size="sm" />
-                  )}
+                  <Spinner animation="border" variant="light" size="sm" />
+                )}
                 {loading ? 'Loading' : 'Confirm'}
               </Button>
             </Col>
           </Row>
         </Form>
       </Container>
+      <Footer />
     </div>
   );
 };

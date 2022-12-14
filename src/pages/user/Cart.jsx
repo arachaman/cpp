@@ -11,6 +11,7 @@ import CartItem from "../../components/CartItem";
 import CartContext from "../../context/cart/cart-context";
 import { useNavigate } from "react-router-dom";
 import FormattedPrice from "../../helper/FormattedPrice";
+import Footer from "../Footer";
 
 const Cart = () => {
 
@@ -18,13 +19,13 @@ const Cart = () => {
 
   const navigate = useNavigate();
 
-  const [ deleteItem, isDeleteItem ] = useState(false)
-  const [ decreaseItem, isDecreaseItem ] = useState(false)
-  const [ increaseItem, isIncreaseItem ] = useState(false)
+  const [deleteItem, isDeleteItem] = useState(false)
+  const [decreaseItem, isDecreaseItem] = useState(false)
+  const [increaseItem, isIncreaseItem] = useState(false)
 
   const cartCtx = useContext(CartContext);
 
-  const qty = cartCtx.items.map((item)=>{
+  const qty = cartCtx.items.map((item) => {
     return item.amount
   })
 
@@ -32,25 +33,25 @@ const Cart = () => {
     return accumulator + value;
   }, 0);
 
-  useEffect(()=>{
+  useEffect(() => {
     let cartId;
-    if(deleteItem == true || increaseItem == true || decreaseItem == true){
-      async function updateCart(){
+    if (deleteItem == true || increaseItem == true || decreaseItem == true) {
+      async function updateCart() {
         const q = query(collection(db, "carts"), where("email", "==", user.email));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
-            cartId = doc.id
+          cartId = doc.id
         });
         const taskDocRef = doc(db, 'carts', cartId)
-        try{
-            await updateDoc(taskDocRef, {
-                carts:[{
-                    items: cartCtx.items,
-                    totalAmount: cartCtx.totalAmount
-                }]
-            })
+        try {
+          await updateDoc(taskDocRef, {
+            carts: [{
+              items: cartCtx.items,
+              totalAmount: cartCtx.totalAmount
+            }]
+          })
         } catch (err) {
-            alert(err)
+          alert(err)
         }
         isDeleteItem(false)
         isIncreaseItem(false)
@@ -59,27 +60,27 @@ const Cart = () => {
 
       updateCart()
     }
-  },[cartCtx.items, deleteItem, increaseItem, decreaseItem])
+  }, [cartCtx.items, deleteItem, increaseItem, decreaseItem])
 
-  function onDeleteItemCartHandler(id){
+  function onDeleteItemCartHandler(id) {
     cartCtx.deleteItem(id)
     isDeleteItem(true)
   }
 
-  function onIncreaseItemCartHandler(item){
-    cartCtx.addItem({...item, amount: 1})
+  function onIncreaseItemCartHandler(item) {
+    cartCtx.addItem({ ...item, amount: 1 })
     isIncreaseItem(true)
   }
 
-  function onDecreaseItemCartHandler(id){
+  function onDecreaseItemCartHandler(id) {
     cartCtx.removeItem(id)
     isDecreaseItem(true)
   }
 
   return (
     <div>
-      { user != null ? <NavigationUser/> : <Navigation/> }
-      <div className={`${styles.banner} text-white `}></div>
+      {user != null ? <NavigationUser /> : <Navigation />}
+      <div className={`${styles.banner} text-white align-middle`}></div>
       <Container>
         <Row>
           <Col className="mx-5">
@@ -95,17 +96,17 @@ const Cart = () => {
               </thead>
               <tbody className="align-middle">
                 {
-                  cartCtx.items.map((item,i)=>(
+                  cartCtx.items.map((item, i) => (
                     <CartItem
                       key={item.id}
                       id={item.id}
-                      index={i+1}
+                      index={i + 1}
                       title={item.title}
                       price={item.price}
                       amount={item.amount}
-                      onDeleteHandler={onDeleteItemCartHandler.bind(null,item.id)}
-                      onIncreamentHandler={onIncreaseItemCartHandler.bind(null,item)}
-                      onDecreamentHandler={onDecreaseItemCartHandler.bind(null,item.id)}
+                      onDeleteHandler={onDeleteItemCartHandler.bind(null, item.id)}
+                      onIncreamentHandler={onIncreaseItemCartHandler.bind(null, item)}
+                      onDecreamentHandler={onDecreaseItemCartHandler.bind(null, item.id)}
                     />
                   ))
                 }
@@ -129,12 +130,13 @@ const Cart = () => {
                 </tr>
               </tbody>
             </Table>
-            <Button variant="warning" onClick={()=>{navigate('/user/payment')}}>
+            <Button variant="warning" onClick={() => { navigate('/user/payment') }}>
               Checkout
             </Button>
           </Col>
         </Row>
       </Container>
+      <Footer/>
     </div>
   );
 };

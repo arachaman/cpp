@@ -6,7 +6,7 @@ import logo from '../images/logo.png'
 const Navigation = () => {
   return (
     <div>
-        <Navbar bg="light" expand="lg" sticky="top">
+        <Navbar bg="light" expand="lg" sticky="top" className=''>
         <Container>
           <Navbar.Brand href="/">
           <img
@@ -14,7 +14,7 @@ const Navigation = () => {
               src={logo}
               width="30"
               height="30"
-              className="d-inline-block align-top"
+              className="d-inline-block align-top "
             />
             C-Warehouse
           </Navbar.Brand>

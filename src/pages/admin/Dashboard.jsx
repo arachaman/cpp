@@ -54,7 +54,7 @@ const Dashboard = () => {
         <h1>Dashboard</h1>
         <Button variant="primary" href="/dashboard/addproduct">Add Product</Button>
           <Table className="table table-striped text-center">
-            <thead>
+            <thead className="align-middle">
               <tr>
                 <th>#</th>
                 <th>Product Name</th>
@@ -78,6 +78,7 @@ const Dashboard = () => {
                   link={product.data.link}
                   categories={categories}
                   onDeleteHandler={onDeleteProductHandler}
+                  
                 />
               ))}
             </tbody>

@@ -72,7 +72,7 @@ const Navigation = () => {
               <Nav.Link href="/#about">ABOUT US</Nav.Link>
             </Nav>
             <Nav>
-              <NavDropdown title={`welcome ${user.email}`} id="nav-dropdown">
+              <NavDropdown title={`Welcome, ${user.email}!`} id="nav-dropdown">
                 <NavDropdown.Item>
                   <Button
                     disabled={loading}
