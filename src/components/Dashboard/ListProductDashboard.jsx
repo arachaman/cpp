@@ -55,7 +55,7 @@ const ListProductDashboard = (
         </td>
         <td>
           <div style={{height:"50px", overflow:"hidden"}}>
-            <p>{description}...</p>
+            <p>{description}</p>
           </div>
         </td>
         <td>

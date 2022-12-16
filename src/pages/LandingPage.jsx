@@ -135,7 +135,9 @@ const LandingPages = () => {
               <img src="https://eslbrains.com/wp-content/uploads/2022/01/Im-afraid-thats-outside-the-scope-of-this-meeting-473x381.png" alt="" />
             </Col>
             <Col className="align-self-center">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta magnam laborum in aliquam? Minima, reprehenderit nesciunt est pariatur magnam natus deleniti ad labore dolorum distinctio nostrum vero facilis et suscipit enim vel ratione ducimus consequatur facere nam aspernatur? Maiores minus officia, animi cumque nobis fugiat modi, quam perspiciatis tempora vero quos temporibus omnis quae recusandae magnam deserunt? Eos ab corrupti labore eaque alias, consequuntur ullam quasi. Inventore aspernatur consectetur quod est alias illo, sapiente enim deserunt a. Recusandae aliquid minus tempore! Nihil a at ipsam accusantium aliquid, eaque, est expedita esse, culpa possimus excepturi placeat rerum nobis amet incidunt non!
+              Philip brings a wealth of experience in marketing and sales to the table, while Rahman is a skilled software developer with a passion for creating innovative products. Together, we make a dynamic team with a shared vision for success.
+              Our company was founded on the principle of delivering top-quality products and services to our customers. We are constantly working to improve and expand our offerings, and we are committed to maintaining the highest level of customer satisfaction.
+              Thank you for choosing us as your go-to source for [insert product/service]. We look forward to working with you and helping you achieve your goals.
             </Col>
           </Row>
         </div>

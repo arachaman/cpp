@@ -51,6 +51,7 @@ const AddProd = () => {
           alert(err)
           isLoading(false)
         }  
+        // console.log(products)
 
     } 
 
@@ -143,7 +144,7 @@ const AddProd = () => {
                                     required
                                     onChange={(e)=>
                                         setProducts({
-                                            ...category,
+                                            ...products,
                                             description: e.target.value
                                         })
                                     } 

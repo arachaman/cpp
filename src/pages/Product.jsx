@@ -105,6 +105,7 @@ const Product = () => {
                         <p>{description}</p>
                         <br />
                         <Button
+                            disabled={stock === 'available'? false: true}
                             variant="warning"
                             className='me-2'
                             onClick={
@@ -116,6 +117,7 @@ const Product = () => {
                             Add to Cart
                         </Button>
                         <Button
+                            disabled={stock === 'available'? false: true}
                             variant="danger"
                             onClick={buyNowHandler}
                         >
