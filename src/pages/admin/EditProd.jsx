@@ -18,6 +18,7 @@ const AddProd = () => {
             stock,
             price,
             link,
+            description,
             categories
         } = state;
 
@@ -26,6 +27,7 @@ const AddProd = () => {
         category,
         stock,
         price,
+        description,
         link
     });
 
@@ -41,6 +43,7 @@ const AddProd = () => {
             category: products.category,
             stock: products.stock,
             price: products.price,
+            description: products.description,
             link: products.link
           })
           isLoading(false)
@@ -133,6 +136,22 @@ const AddProd = () => {
                                     </Form.Group>
                                 </Col>
                             </Row>
+                            <Form.Group className="mb-3" controlId="categoryDesc">
+                                <Form.Label>Product Description </Form.Label>
+                                <Form.Control
+                                    disabled={loading}
+                                    required
+                                    onChange={(e)=>
+                                        setProducts({
+                                            ...category,
+                                            description: e.target.value
+                                        })
+                                    } 
+                                    as="textarea" 
+                                    rows={3}
+                                    defaultValue={products.description}
+                                />
+                            </Form.Group>
                             <Form.Group className="mb-3" controlId="productImage">
                                 <Form.Label>Product image link </Form.Label>
                                 <Form.Control

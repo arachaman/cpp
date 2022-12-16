@@ -13,7 +13,8 @@ const ListProductDashboard = (
         price,
         link, 
         onDeleteHandler,
-        categories
+        categories,
+        description
     }) => {
 
   const navigate = useNavigate()
@@ -33,6 +34,7 @@ const ListProductDashboard = (
             stock,
             price,
             link,
+            description,
             categories
           } 
         }
@@ -46,9 +48,19 @@ const ListProductDashboard = (
         <td>{category}</td>
         <td>{price}</td>
         <td>{stock}</td>
-        <td>{link}</td>
+        <td>
+          <div style={{height:"50px", overflow:"hidden"}}>
+            {link}
+          </div>
+        </td>
+        <td>
+          <div style={{height:"50px", overflow:"hidden"}}>
+            <p>{description}...</p>
+          </div>
+        </td>
         <td>
             <Button variant="warning" onClick={updateHandler}>Edit</Button>
+            {'  '}
             <Button variant="danger" onClick={deleteHandler}>Delete</Button>
         </td>
     </tr>

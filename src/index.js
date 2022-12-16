@@ -26,6 +26,7 @@ import CartProvider from "./context/cart/CartProvider";
 import PaymentNow from "./pages/user/PaymentNow";
 import ListProducts from "./pages/ListProducts";
 import ListCategories from "./pages/ListCategories";
+import OrderUser from "./pages/user/OrderUser";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -120,6 +121,14 @@ root.render(
                   element={
                     <ProtectedRouteUser>
                       <PaymentNow />
+                    </ProtectedRouteUser>
+                  }
+                />
+                <Route
+                  path='/user/orderuser'
+                  element={
+                    <ProtectedRouteUser>
+                      <OrderUser />
                     </ProtectedRouteUser>
                   }
                 />

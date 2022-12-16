@@ -1,7 +1,7 @@
 import React from "react"
 import { Button } from "react-bootstrap";
-import CapitalizeLetter from "../helper/CapitalizeLetter";
-import FormattedPrice from "../helper/FormattedPrice";
+import CapitalizeLetter from "../../helper/CapitalizeLetter";
+import FormattedPrice from "../../helper/FormattedPrice";
 
 const CartItem = ({ 
     id, 

@@ -7,7 +7,7 @@ import { collection, getDocs, query, where, updateDoc, doc } from "firebase/fire
 import { db } from "../../config/fb"
 import styles from "../../css/cart.css";
 import { UserAuth } from '../../context/AuthContext';
-import CartItem from "../../components/CartItem";
+import CartItem from "../../components/User/CartItem";
 import CartContext from "../../context/cart/cart-context";
 import { useNavigate } from "react-router-dom";
 import FormattedPrice from "../../helper/FormattedPrice";

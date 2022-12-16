@@ -73,6 +73,9 @@ const Navigation = () => {
             </Nav>
             <Nav>
               <NavDropdown title={`Welcome, ${user.email}!`} id="nav-dropdown">
+                <NavDropdown.Item onClick={()=>{navigate('/user/orderuser')}}>
+                  My Order
+                </NavDropdown.Item>
                 <NavDropdown.Item>
                   <Button
                     disabled={loading}

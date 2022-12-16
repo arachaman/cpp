@@ -53,15 +53,19 @@ const Dashboard = () => {
           <div className="mt-5 ">
         <h1>Dashboard</h1>
         <Button variant="primary" href="/dashboard/addproduct">Add Product</Button>
-          <Table className="table table-striped text-center">
+          <Table 
+            className="table-hover" 
+            style={{tableLayout: "fixed"}} 
+          >
             <thead className="align-middle">
               <tr>
-                <th>#</th>
+                <th style={{width: "20px"}}>#</th>
                 <th>Product Name</th>
                 <th>Category</th>
                 <th>Product Price</th>
                 <th>Stock</th>
                 <th>Image</th>
+                <th>Description</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -77,6 +81,7 @@ const Dashboard = () => {
                   stock={product.data.stock}
                   link={product.data.link}
                   categories={categories}
+                  description={product.data.description}
                   onDeleteHandler={onDeleteProductHandler}
                   
                 />
