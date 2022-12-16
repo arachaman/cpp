@@ -4,7 +4,7 @@ import { Container, Button, Table } from "react-bootstrap";
 import AdmNav from './AdmNav';
 import { doc, collection, getDocs, updateDoc } from "firebase/firestore";
 import { db } from '../../config/fb.js'
-import OrderList from '../../components/OrderList';
+import OrderList from '../../components/Dashboard/OrderList';
 
 const ManageOrder = () => {
 
