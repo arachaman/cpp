@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect }  from 'react'
 import { Container, Navbar, Nav, Button, NavDropdown } from "react-bootstrap";
 import Spinner from 'react-bootstrap/Spinner';
-import { Link } from "react-router-dom";
 import CartIcon from '../../assets/carticon.png'
 import logo from '../../images/logo.png';
 import { UserAuth } from '../../context/AuthContext';
@@ -18,7 +17,7 @@ const Navigation = () => {
 
   const { user, logout } = UserAuth();
 
-  const [loading, isLoading] = useState()
+  const [loading] = useState()
 
   useEffect(()=>{
     let carts;

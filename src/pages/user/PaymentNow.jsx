@@ -24,7 +24,6 @@ const PaymentNow = () => {
   const [modalShow, setModalShow] = useState(false);
 
   const {
-    id,
     title,
     price,
     amount,

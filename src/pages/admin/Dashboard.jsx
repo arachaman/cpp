@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Button, Table, Row, Col } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
 import { doc, collection, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from '../../config/fb.js'
 import AdmNav from "./AdmNav";

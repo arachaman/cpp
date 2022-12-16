@@ -20,7 +20,6 @@ const Category = () => {
   const [products, setProducts] = useState([])
 
   const {
-    id,
     title,
     description,
     link
@@ -59,7 +58,7 @@ const Category = () => {
                 height: "100%",
               }}
               className="img-fluid border rounded-3 shadow-lg mb-4"
-              alt="Example image"
+              alt="Example"
               loading="lazy"
             />
           </div>

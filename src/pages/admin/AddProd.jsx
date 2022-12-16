@@ -35,7 +35,7 @@ const AddProd = () => {
         isLoading(true)
         const q = query(collection(db, "products"), where("title", "==",products.title.toLowerCase()));
         const querySnapshot = await getDocs(q);
-        if(querySnapshot.docs.length == 0){
+        if(querySnapshot.docs.length === 0){
             try {
                 await addDoc(collection(db, 'products'), {
                     title: products.title.toLowerCase(),

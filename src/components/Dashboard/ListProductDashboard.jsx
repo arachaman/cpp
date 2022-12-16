@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Card, Button,} from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 
 const ListProductDashboard = (

@@ -15,11 +15,11 @@ const UserOrderList = ({
 
     let colorStatus
 
-    if(status == "completed"){
+    if(status === "completed"){
         colorStatus = {
             color: "green"
         }
-    } else if(status == "canceled" || status == "pending"){
+    } else if(status === "canceled" || status === "pending"){
         colorStatus = {
             color: "red"
         }

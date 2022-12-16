@@ -87,12 +87,12 @@ const cartReducer = (state, action) => {
         let updatedItems
         let updatedTotalAmount
 
-        action.item.map((item)=>{
+        action.item.forEach((item) => {
             updatedItems = item.items;
             updatedTotalAmount = item.totalAmount;
         })
 
-        return {
+        return{
             items: updatedItems,
             totalAmount: updatedTotalAmount
         }

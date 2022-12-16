@@ -35,7 +35,7 @@ const Cart = () => {
 
   useEffect(() => {
     let cartId;
-    if (deleteItem == true || increaseItem == true || decreaseItem == true) {
+    if (deleteItem === true || increaseItem === true || decreaseItem === true) {
       async function updateCart() {
         const q = query(collection(db, "carts"), where("email", "==", user.email));
         const querySnapshot = await getDocs(q);

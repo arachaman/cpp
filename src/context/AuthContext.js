@@ -5,7 +5,6 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  getAuth
 } from 'firebase/auth';
 
 import { auth } from '../config/fb';

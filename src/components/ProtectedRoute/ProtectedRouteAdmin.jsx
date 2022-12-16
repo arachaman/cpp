@@ -6,7 +6,7 @@ const ProtectedRouteAdmin = ({ children }) => {
   const { user } = UserAuth();
 
   if ( !user ) {
-    if( user.email != 'admin@app.com'){
+    if( user.email !== 'admin@app.com'){
       return <Navigate to='/' />;
     }
   }

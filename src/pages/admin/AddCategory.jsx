@@ -21,7 +21,7 @@ const AddCategory = () => {
         isLoading(true)
         const q = query(collection(db, "categories"), where("title", "==",category.title.toLowerCase()));
         const querySnapshot = await getDocs(q);
-        if(querySnapshot.docs.length == 0){
+        if(querySnapshot.docs.length === 0){
             try {
                 await addDoc(collection(db, 'categories'), {
                     title: category.title.toLowerCase(),
